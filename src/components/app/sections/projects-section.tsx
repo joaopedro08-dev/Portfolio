@@ -45,7 +45,7 @@ export default function ProjectsSection() {
             whileInView="visible"
             viewport={{ once: true }}
         >
-            <div className="mx-auto flex flex-col gap-10">
+            <div className="w-full max-w-7xl mx-auto flex flex-col gap-10">
                 <motion.div className="flex flex-col gap-2" variants={staggerContainer} initial="hidden" animate="visible">
                     <motion.span className="text-xs font-medium uppercase tracking-widest text-primary" variants={fadeInUp} custom={0}>
                         Projetos
@@ -103,9 +103,9 @@ export default function ProjectsSection() {
                 </motion.div>
 
                 {filtered.length > 0 ? (
-                    <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                        {filtered.map((project) => (
-                            <motion.div key={project.title} variants={scaleIn} custom={0} whileHover={{ y: -5 }}>
+                    <motion.div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                        {filtered.map((project, index) => (
+                            <motion.div key={project.title} variants={scaleIn} custom={index} whileHover={{ y: -5 }}>
                                 <Card className="border-border/60 flex flex-col hover:shadow-lg transition-shadow h-full">
                                     <CardContent className="flex flex-col gap-3 p-4 flex-1">
                                         <Badge variant="outline" className="w-fit text-xs rounded-full px-3">

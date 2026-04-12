@@ -1,7 +1,6 @@
 import Footer from "./components/app/footer"
 import Header from "./components/app/header"
 import Main from "./components/app/main"
-import ButtonUp from "./components/button-up"
 
 export function App() {
   return (
@@ -9,7 +8,6 @@ export function App() {
       <Header />
       <Main className="pt-16" />
       <Footer />
-      <ButtonUp />
     </div>
   )
 }
