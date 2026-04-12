@@ -20,7 +20,7 @@ export default function Header() {
 
     useEffect(() => {
         const sections = ["home", "about", "projects", "skills", "contact"];
-        
+
         const observer = new IntersectionObserver(
             (entries: IntersectionObserverEntry[]) => {
                 let mostVisibleEntry: IntersectionObserverEntry | null = null;
@@ -33,8 +33,9 @@ export default function Header() {
                     }
                 });
 
-                if (mostVisibleEntry) {
-                    setActiveSection((mostVisibleEntry as HTMLElement).id);
+                if (mostVisibleEntry !== null) {
+                    const entry = mostVisibleEntry as IntersectionObserverEntry;
+                    setActiveSection((entry.target as HTMLElement).id);
                 }
             },
             {
@@ -61,11 +62,10 @@ export default function Header() {
 
     return (
         <motion.header
-            className={`w-full fixed top-0 left-0 right-0 border-b z-50 transition-all duration-300 ${
-                isScrolled
+            className={`w-full fixed top-0 left-0 right-0 border-b z-50 transition-all duration-300 ${isScrolled
                     ? "bg-linear-to-r from-primary/10 via-card/50 to-secondary/10 backdrop-blur-md border-primary/20"
                     : "bg-transparent border-transparent"
-            }`}
+                }`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -110,11 +110,10 @@ export default function Header() {
                                 whileHover={{ scale: 1.1 }}
                             >
                                 <a href={link.href}
-                                    className={`relative text-sm transition-colors ${
-                                        activeSection === link.href.slice(1)
+                                    className={`relative text-sm transition-colors ${activeSection === link.href.slice(1)
                                             ? "text-primary font-medium"
                                             : "text-muted-foreground hover:text-primary"
-                                    }
+                                        }
                                     after:absolute after:left-0 after:-bottom-0.5
                                     after:h-px after:bg-primary
                                     ${activeSection === link.href.slice(1) ? "after:w-full" : "after:w-0"}
