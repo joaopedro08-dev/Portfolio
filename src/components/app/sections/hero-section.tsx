@@ -41,7 +41,7 @@ export default function HeroSection() {
     return (
         <motion.section
             id="home"
-            className="flex flex-col items-center justify-center min-h-[80vh] text-center px-6 gap-6"
+            className="flex flex-col items-center justify-center min-h-[80vh] text-center px-12 gap-6"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
