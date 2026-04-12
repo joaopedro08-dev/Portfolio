@@ -23,7 +23,7 @@ export default function Header() {
         
         const observer = new IntersectionObserver(
             (entries) => {
-                let mostVisibleEntry = null;
+                let mostVisibleEntry: IntersectionObserverEntry | null = null;
                 let highestRatio = 0;
 
                 entries.forEach((entry) => {
