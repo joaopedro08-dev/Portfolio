@@ -62,9 +62,9 @@ export default function HeroSection() {
                     Olá, eu sou o João Pedro
                 </motion.h1>
 
-                <motion.div className="flex items-center justify-center gap-2 md:gap-3 text-xl sm:text-2xl md:text-5xl lg:text-6xl font-bold tracking-tight flex-wrap" variants={fadeInUp} custom={3}>
-                    <span>Desenvolvedor</span>
-                    <span className="text-muted-foreground">
+                <motion.div className="flex items-center justify-center gap-2 md:gap-3 text-xl sm:text-2xl md:text-5xl lg:text-6xl font-bold tracking-tight w-full min-h-[1.2em]" variants={fadeInUp} custom={3}>
+                    <span className="shrink-0">Desenvolvedor</span>
+                    <span className="text-muted-foreground inline-block min-w-0 overflow-hidden text-ellipsis">
                         {text}
                         <span className="inline-block w-0.5 h-[1em] bg-foreground ml-1 align-middle animate-pulse" />
                     </span>
