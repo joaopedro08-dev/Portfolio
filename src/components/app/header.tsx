@@ -24,14 +24,14 @@ export default function Header() {
         const observer = new IntersectionObserver(
             (entries: IntersectionObserverEntry[]) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
+                    if (entry.isIntersecting) {
                         setActiveSection(entry.target.id);
                     }
                 });
             },
             {
-                threshold: [0.1],
-                rootMargin: "0px 0px -75% 0px"
+                threshold: 0.3,
+                rootMargin: "-80px 0px -20% 0px"
             }
         );
 
@@ -54,8 +54,8 @@ export default function Header() {
     return (
         <motion.header
             className={`w-full fixed top-0 left-0 right-0 border-b z-50 transition-all duration-300 ${isScrolled
-                    ? "bg-linear-to-r from-primary/10 via-card/50 to-secondary/10 backdrop-blur-md border-primary/20"
-                    : "bg-transparent border-transparent"
+                ? "bg-linear-to-r from-primary/10 via-card/50 to-secondary/10 backdrop-blur-md border-primary/20"
+                : "bg-transparent border-transparent"
                 }`}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,8 +102,8 @@ export default function Header() {
                             >
                                 <a href={link.href}
                                     className={`relative text-sm transition-colors ${activeSection === link.href.slice(1)
-                                            ? "text-primary font-medium"
-                                            : "text-muted-foreground hover:text-primary"
+                                        ? "text-primary font-medium"
+                                        : "text-muted-foreground hover:text-primary"
                                         }
                                     after:absolute after:left-0 after:-bottom-0.5
                                     after:h-px after:bg-primary
