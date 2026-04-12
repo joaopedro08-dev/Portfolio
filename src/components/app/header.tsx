@@ -22,7 +22,7 @@ export default function Header() {
         const sections = ["home", "about", "projects", "skills", "contact"];
         
         const observer = new IntersectionObserver(
-            (entries) => {
+            (entries: IntersectionObserverEntry[]) => {
                 let mostVisibleEntry: IntersectionObserverEntry | null = null;
                 let highestRatio = 0;
 
@@ -34,7 +34,7 @@ export default function Header() {
                 });
 
                 if (mostVisibleEntry) {
-                    setActiveSection(mostVisibleEntry.target.id);
+                    setActiveSection((mostVisibleEntry as HTMLElement).id);
                 }
             },
             {
