@@ -23,24 +23,15 @@ export default function Header() {
 
         const observer = new IntersectionObserver(
             (entries: IntersectionObserverEntry[]) => {
-                let mostVisibleEntry: IntersectionObserverEntry | null = null;
-                let highestRatio = 0;
-
                 entries.forEach((entry) => {
-                    if (entry.intersectionRatio > highestRatio && entry.intersectionRatio > 0.2) {
-                        highestRatio = entry.intersectionRatio;
-                        mostVisibleEntry = entry;
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.1) {
+                        setActiveSection(entry.target.id);
                     }
                 });
-
-                if (mostVisibleEntry !== null) {
-                    const entry = mostVisibleEntry as IntersectionObserverEntry;
-                    setActiveSection((entry.target as HTMLElement).id);
-                }
             },
             {
-                threshold: [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
-                rootMargin: "-100px 0px 0px 0px"
+                threshold: [0.1],
+                rootMargin: "0px 0px -75% 0px"
             }
         );
 
