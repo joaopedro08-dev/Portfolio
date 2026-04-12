@@ -30,8 +30,8 @@ export default function Header() {
                 });
             },
             {
-                threshold: 0.3,
-                rootMargin: "-80px 0px -20% 0px"
+                threshold: 0,
+                rootMargin: "-80px 0px -85% 0px"
             }
         );
 
