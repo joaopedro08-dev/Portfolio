@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { BsGithub } from "react-icons/bs";
 import { projects } from "@/assets/ts/projects";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { fadeInUp, scaleIn, staggerContainer } from "@/lib/animations";
 
 const TYPE_ORDER = ["Todos", "Full-stack", "Web", "Mobile", "Front-end", "Back-end", "Desktop", "Estudo"];
@@ -22,6 +22,17 @@ const allTechs = [
 export default function ProjectsSection() {
     const [activeType, setActiveType] = useState("Todos");
     const [activeTech, setActiveTech] = useState("Todas");
+    const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
+
+    const toggleExpanded = (projectTitle: string) => {
+        const newExpanded = new Set(expandedProjects);
+        if (newExpanded.has(projectTitle)) {
+            newExpanded.delete(projectTitle);
+        } else {
+            newExpanded.add(projectTitle);
+        }
+        setExpandedProjects(newExpanded);
+    };
 
     const filtered = projects.filter((p) => {
         const matchType = activeType === "Todos" || p.type.includes(activeType);
@@ -58,103 +69,128 @@ export default function ProjectsSection() {
                     </motion.p>
                 </motion.div>
 
-                <motion.div className="flex flex-col gap-3" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                    <motion.div className="flex flex-wrap items-center gap-2" variants={fadeInUp} custom={0}>
-                        <span className="text-xs text-muted-foreground w-8">Tipo</span>
-                        {allTypes.map((type, i) => (
-                            <motion.div key={type} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}>
-                                <Button
-                                    variant={activeType === type ? "default" : "outline"}
-                                    size="sm"
-                                    className="rounded-full text-xs h-7 px-3"
-                                    onClick={() => setActiveType(type)}
-                                >
-                                    {type}
-                                </Button>
-                            </motion.div>
-                        ))}
+                <motion.div className="flex flex-col gap-5" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                    <motion.div className="flex flex-col gap-2.5" variants={fadeInUp} custom={0}>
+                        <span className="text-xs md:text-sm text-muted-foreground font-medium px-0.5">Tipo:</span>
+                        <div className="flex flex-wrap gap-2">
+                            {allTypes.map((type, i) => (
+                                <motion.div key={type} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}>
+                                    <Button
+                                        variant={activeType === type ? "default" : "outline"}
+                                        size="sm"
+                                        className="rounded-full text-xs md:text-sm h-7 md:h-8 px-3 md:px-4"
+                                        onClick={() => setActiveType(type)}
+                                    >
+                                        {type}
+                                    </Button>
+                                </motion.div>
+                            ))}
+                        </div>
                     </motion.div>
-                    <motion.div className="flex flex-wrap items-center gap-2" variants={fadeInUp} custom={1}>
-                        <span className="text-xs text-muted-foreground w-8">Tech</span>
-                        {allTechs.map((tech, i) => (
-                            <motion.div key={tech} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}>
-                                <Button
-                                    variant={activeTech === tech ? "default" : "outline"}
-                                    size="sm"
-                                    className="rounded-full text-xs h-7 px-3"
-                                    onClick={() => setActiveTech(tech)}
-                                >
-                                    {tech}
-                                </Button>
-                            </motion.div>
-                        ))}
+                    <motion.div className="flex flex-col gap-2.5" variants={fadeInUp} custom={1}>
+                        <span className="text-xs md:text-sm text-muted-foreground font-medium px-0.5">Tech:</span>
+                        <div className="flex flex-wrap gap-2">
+                            {allTechs.map((tech, i) => (
+                                <motion.div key={tech} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.05 }} viewport={{ once: true }}>
+                                    <Button
+                                        variant={activeTech === tech ? "default" : "outline"}
+                                        size="sm"
+                                        className="rounded-full text-xs md:text-sm h-7 md:h-8 px-3 md:px-4"
+                                        onClick={() => setActiveTech(tech)}
+                                    >
+                                        {tech}
+                                    </Button>
+                                </motion.div>
+                            ))}
+                        </div>
                     </motion.div>
                 </motion.div>
 
-                <motion.div className="flex items-center justify-between -mt-4" variants={fadeInUp} custom={2}>
-                    <span className="text-xs text-muted-foreground">
+                <motion.div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4" variants={fadeInUp} custom={2}>
+                    <span className="text-xs sm:text-sm text-muted-foreground">
                         {filtered.length} projeto{filtered.length !== 1 ? "s" : ""} encontrado{filtered.length !== 1 ? "s" : ""}
                     </span>
                     {hasActiveFilter && (
-                        <Button variant="ghost" size="sm" className="text-xs h-7" onClick={clearFilters}>
+                        <Button variant="ghost" size="sm" className="text-xs sm:text-sm h-7 md:h-8 w-fit" onClick={clearFilters}>
                             Limpar filtros
                         </Button>
                     )}
                 </motion.div>
 
                 {filtered.length > 0 ? (
-                    <motion.div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                        {filtered.map((project, index) => (
-                            <motion.div key={project.title} variants={scaleIn} custom={index} whileHover={{ y: -5 }}>
-                                <Card className="border-border/60 flex flex-col hover:shadow-lg transition-shadow h-full">
-                                    <CardContent className="flex flex-col gap-3 p-4 flex-1">
-                                        <Badge variant="outline" className="w-fit text-xs rounded-full px-3">
-                                            {project.type.join(" • ")}
-                                        </Badge>
+                    <AnimatePresence mode="wait">
+                        <motion.div 
+                            key={`${activeType}-${activeTech}`}
+                            className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" 
+                            variants={staggerContainer} 
+                            initial="hidden" 
+                            animate="visible"
+                            exit="hidden"
+                        >
+                            {filtered.map((project, index) => (
+                                <motion.div key={project.title} variants={scaleIn} custom={index} whileHover={{ y: -5 }}>
+                                    <Card className="border-border/60 flex flex-col hover:shadow-lg transition-shadow h-full">
+                                        <CardContent className="flex flex-col gap-3 p-4 flex-1">
+                                            <Badge variant="outline" className="w-fit text-xs rounded-full px-3">
+                                                {project.type.join(" • ")}
+                                            </Badge>
 
-                                        <div className="flex flex-col gap-1">
-                                            <h3 className="text-sm font-semibold leading-snug">{project.title}</h3>
-                                            <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
-                                                {project.description}
-                                            </p>
-                                        </div>
+                                            <div className="flex flex-col gap-2">
+                                                <h3 className="text-sm font-semibold leading-snug">{project.title}</h3>
+                                                <div className="flex flex-col gap-1.5">
+                                                    <p className={`text-xs text-muted-foreground leading-relaxed ${expandedProjects.has(project.title) ? "" : "line-clamp-3"}`}>
+                                                        {project.description}
+                                                    </p>
+                                                    {project.description.length > 100 && (
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="sm"
+                                                            className="h-6 px-2 text-xs text-primary hover:text-primary/80 p-0 justify-start"
+                                                            onClick={() => toggleExpanded(project.title)}
+                                                        >
+                                                            {expandedProjects.has(project.title) ? "Ver menos" : "Ver mais"}
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            </div>
 
-                                        <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
-                                            {project.techs.map((tech) => (
-                                                <span
-                                                    key={tech}
-                                                    className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-md"
-                                                >
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
+                                            <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
+                                                {project.techs.map((tech) => (
+                                                    <span
+                                                        key={tech}
+                                                        className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-md"
+                                                    >
+                                                        {tech}
+                                                    </span>
+                                                ))}
+                                            </div>
 
-                                        <div className="flex gap-2 pt-1">
-                                            <motion.div whileHover={{ scale: 1.05 }} className="flex-1">
-                                                <Button variant="outline" size="sm" className="w-full text-xs" asChild>
-                                                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                                                        <BsGithub className="mr-1.5 h-3.5 w-3.5" />
-                                                        GitHub
-                                                    </a>
-                                                </Button>
-                                            </motion.div>
-                                            {project.demo && (
+                                            <div className="flex gap-2 pt-1">
                                                 <motion.div whileHover={{ scale: 1.05 }} className="flex-1">
-                                                    <Button size="sm" className="w-full text-xs" asChild>
-                                                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                                                            <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-                                                            Demo
+                                                    <Button variant="outline" size="sm" className="w-full text-xs" asChild>
+                                                        <a href={project.github} target="_blank" rel="noopener noreferrer">
+                                                            <BsGithub className="mr-1.5 h-3.5 w-3.5" />
+                                                            GitHub
                                                         </a>
                                                     </Button>
                                                 </motion.div>
-                                            )}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </motion.div>
+                                                {project.demo && (
+                                                    <motion.div whileHover={{ scale: 1.05 }} className="flex-1">
+                                                        <Button size="sm" className="w-full text-xs" asChild>
+                                                            <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                                                                <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
+                                                                Demo
+                                                            </a>
+                                                        </Button>
+                                                    </motion.div>
+                                                )}
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    </AnimatePresence>
                 ) : (
                     <motion.div className="flex flex-col items-center justify-center py-16 text-muted-foreground gap-2" variants={fadeInUp} custom={3}>
                         <p className="text-sm">Nenhum projeto encontrado com esses filtros.</p>
