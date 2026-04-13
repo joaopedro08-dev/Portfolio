@@ -9,6 +9,41 @@ type Project = {
 
 export const projects: Project[] = [
     {
+        title: "Abertura-SigaAluno",
+        description: "Página introdutória do SigaAluno desenvolvida como parte do TCC.",
+        type: ["Web", "Front-end"],
+        techs: ["React", "JavaScript", "Ionic", "Tailwind", "Vite", "Framer Motion"],
+        github: "https://github.com/joaopedro08-dev/Abertura-SigaAluno",
+    },
+    {
+        title: "Backend-SigaAluno",
+        description: "Serviço back-end do sistema de gestão escolar SigaAluno para o TCC.",
+        type: ["Back-end"],
+        techs: ["Java", "JWT", "Spring Boot", "Maven", "Spring Security", "Spring JPA", "Mercado Pago SDK"],
+        github: "https://github.com/joaopedro08-dev/Backend-SigaAluno",
+    },
+    {
+        title: "Frontend-SigaAluno",
+        description: "Interface front-end do sistema de gestão escolar SigaAluno para o TCC.",
+        type: ["Web", "Front-end"],
+        techs: ["React", "TypeScript", "Ionic", "Axios", "Tailwind", "Vite", "Framer Motion"],
+        github: "https://github.com/joaopedro08-dev/Frontend-SigaAluno",
+    },
+    {
+        title: "Atelie-Backend",
+        description: "API do Atelie baseada em GraphQL com integração ao banco de dados e autenticação.",
+        type: ["Back-end"],
+        techs: ["Java", "GraphQL", "JWT", "Spring Boot", "PostgreSQL", "Spring Security", "Spring JPA"],
+        github: "https://github.com/joaopedro08-dev/Atelie-Backend",
+    },
+    {
+        title: "Capitaes-da-Areia",
+        description: "Projeto web de leitura e atividades sobre a obra Capitães da Areia, desenvolvido no SESI.",
+        type: ["Web", "Front-end"],
+        techs: ["React", "TypeScript", "Tailwind", "Vite", "Framer Motion", "Shadcn UI"],
+        github: "https://github.com/joaopedro08-dev/Capitaes-da-Areia",
+    },
+    {
         title: "CheckList",
         description: "Aplicação Full Stack para gerenciamento de produtos, desenvolvida como preparação para o TCC do SENAI.",
         type: ["Full-stack"],
@@ -94,9 +129,9 @@ export const projects: Project[] = [
     },
     {
         title: "Todolist-Backend",
-        description: "API de lista de tarefas com Python e FastAPI, banco de dados SQLite.",
+        description: "API de lista de tarefas com Python e FastAPI, banco de dados em memória.",
         type: ["Back-end"],
-        techs: ["Python", "FastAPI", "SQLite"],
+        techs: ["Python", "FastAPI"],
         github: "https://github.com/joaopedro08-dev/Todolist-Backend",
     },
     {
