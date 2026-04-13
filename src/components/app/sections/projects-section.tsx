@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 import { BsGithub } from "react-icons/bs";
 import { projects } from "@/assets/ts/projects";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { fadeInUp, scaleIn, staggerContainer } from "@/lib/animations";
 
 const TYPE_ORDER = ["Todos", "Full-stack", "Web", "Mobile", "Front-end", "Back-end", "Desktop", "Estudo"];
+const MOBILE_BREAKPOINT = 768;
+const MOBILE_PROJECTS_PER_LOAD = 3;
+const DESKTOP_PROJECTS_PER_LOAD = 6;
+
+const getProjectsPerLoad = () => {
+    if (typeof window === "undefined") return DESKTOP_PROJECTS_PER_LOAD;
+    return window.innerWidth < MOBILE_BREAKPOINT ? MOBILE_PROJECTS_PER_LOAD : DESKTOP_PROJECTS_PER_LOAD;
+};
 
 const allTypes = TYPE_ORDER.filter(
     (t) => t === "Todos" || projects.some((p) => p.type.includes(t))
@@ -22,6 +30,17 @@ const allTechs = [
 export default function ProjectsSection() {
     const [activeType, setActiveType] = useState("Todos");
     const [activeTech, setActiveTech] = useState("Todas");
+    const [projectsPerLoad, setProjectsPerLoad] = useState(getProjectsPerLoad);
+    const [visiblePages, setVisiblePages] = useState(1);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setProjectsPerLoad(getProjectsPerLoad());
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const filtered = projects.filter((p) => {
         const matchType = activeType === "Todos" || p.type.includes(activeType);
@@ -29,12 +48,22 @@ export default function ProjectsSection() {
         return matchType && matchTech;
     });
 
+    useEffect(() => {
+        setVisiblePages(1);
+    }, [activeType, activeTech, projectsPerLoad]);
+
+    const visibleProjectsCount = Math.min(filtered.length, visiblePages * projectsPerLoad);
+    const initialVisibleCount = Math.min(projectsPerLoad, filtered.length);
+
     const clearFilters = () => {
         setActiveType("Todos");
         setActiveTech("Todas");
+        setVisiblePages(1);
     };
 
     const hasActiveFilter = activeType !== "Todos" || activeTech !== "Todas";
+    const visibleProjects = filtered.slice(0, visibleProjectsCount);
+    const hasMoreProjects = visibleProjects.length < filtered.length;
 
     return (
         <motion.section
@@ -68,7 +97,13 @@ export default function ProjectsSection() {
                                         variant={activeType === type ? "default" : "outline"}
                                         size="sm"
                                         className="rounded-full text-xs md:text-sm h-7 md:h-8 px-3 md:px-4"
-                                        onClick={() => setActiveType(type)}
+                                        onClick={() => {
+                                            setActiveType(type);
+                                            setVisiblePages(1);
+                                            if (type === "Todos") {
+                                                setActiveTech("Todas");
+                                            }
+                                        }}
                                     >
                                         {type}
                                     </Button>
@@ -85,7 +120,10 @@ export default function ProjectsSection() {
                                         variant={activeTech === tech ? "default" : "outline"}
                                         size="sm"
                                         className="rounded-full text-xs md:text-sm h-7 md:h-8 px-3 md:px-4"
-                                        onClick={() => setActiveTech(tech)}
+                                        onClick={() => {
+                                            setActiveTech(tech);
+                                            setVisiblePages(1);
+                                        }}
                                     >
                                         {tech}
                                     </Button>
@@ -97,7 +135,7 @@ export default function ProjectsSection() {
 
                 <motion.div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4" variants={fadeInUp} custom={2}>
                     <span className="text-xs sm:text-sm text-muted-foreground">
-                        {filtered.length} projeto{filtered.length !== 1 ? "s" : ""} encontrado{filtered.length !== 1 ? "s" : ""}
+                        {visibleProjects.length} de {filtered.length} projeto{filtered.length !== 1 ? "s" : ""} exibido{filtered.length !== 1 ? "s" : ""}
                     </span>
                     {hasActiveFilter && (
                         <Button variant="ghost" size="sm" className="text-xs sm:text-sm h-7 md:h-8 w-fit" onClick={clearFilters}>
@@ -107,16 +145,14 @@ export default function ProjectsSection() {
                 </motion.div>
 
                 {filtered.length > 0 ? (
-                    <AnimatePresence mode="wait">
-                        <motion.div 
-                            key={`${activeType}-${activeTech}`}
-                            className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" 
-                            variants={staggerContainer} 
-                            initial="hidden" 
+                    <>
+                        <motion.div
+                            className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                            variants={staggerContainer}
+                            initial="hidden"
                             animate="visible"
-                            exit="hidden"
                         >
-                            {filtered.map((project, index) => (
+                            {visibleProjects.map((project, index) => (
                                 <motion.div key={project.title} variants={scaleIn} custom={index} whileHover={{ y: -5 }}>
                                     <Card className="border-border/60 flex flex-col hover:shadow-lg transition-shadow h-full">
                                         <CardContent className="flex flex-col gap-3 p-4 flex-1">
@@ -167,7 +203,33 @@ export default function ProjectsSection() {
                                 </motion.div>
                             ))}
                         </motion.div>
-                    </AnimatePresence>
+
+                        {hasMoreProjects && (
+                            <motion.div className="flex justify-center mt-2" variants={fadeInUp} custom={3}>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="rounded-full px-5"
+                                    onClick={() => setVisiblePages((prev) => prev + 1)}
+                                >
+                                    Ver mais repositórios
+                                </Button>
+                            </motion.div>
+                        )}
+
+                        {visibleProjects.length > initialVisibleCount && (
+                            <motion.div className="flex justify-center mt-2" variants={fadeInUp} custom={4}>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="rounded-full px-5"
+                                    onClick={() => setVisiblePages(1)}
+                                >
+                                    Ver menos
+                                </Button>
+                            </motion.div>
+                        )}
+                    </>
                 ) : (
                     <motion.div className="flex flex-col items-center justify-center py-16 text-muted-foreground gap-2" variants={fadeInUp} custom={3}>
                         <p className="text-sm">Nenhum projeto encontrado com esses filtros.</p>
@@ -176,7 +238,6 @@ export default function ProjectsSection() {
                         </Button>
                     </motion.div>
                 )}
-
             </div>
         </motion.section>
     );

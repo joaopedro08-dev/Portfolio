@@ -51,6 +51,7 @@ const mastered: Category[] = [
         skills: [
             { name: "PostgreSQL", level: 75 },
             { name: "MySql", level: 70 },
+            { name: "Firebase", level: 70 },
             { name: "SQLite", level: 65 },
             { name: "MongoDB", level: 65 },
             { name: "phpMyAdmin", level: 60 },

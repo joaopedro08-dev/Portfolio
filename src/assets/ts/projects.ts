@@ -26,7 +26,7 @@ export const projects: Project[] = [
         title: "Frontend-SigaAluno",
         description: "Interface front-end do sistema de gestão escolar SigaAluno para o TCC.",
         type: ["Web", "Front-end"],
-        techs: ["React", "TypeScript", "Ionic", "Axios", "Tailwind", "Vite", "Framer Motion"],
+        techs: ["React", "TypeScript", "Ionic", "Axios", "Tailwind", "Vite", "Framer Motion", "Shadcn UI"],
         github: "https://github.com/joaopedro08-dev/Frontend-SigaAluno",
     },
     {
@@ -54,7 +54,7 @@ export const projects: Project[] = [
         title: "Atelie-Frontend",
         description: "Loja virtual de e-commerce baseada em produtos próprios e autorizados, com interface moderna e integração GraphQL.",
         type: ["Web", "Front-end", "Desktop"],
-        techs: ["React", "TypeScript", "Next.js", "GraphQL", "Tailwind", "Tauri"],
+        techs: ["React", "TypeScript", "Next.js", "GraphQL", "Tailwind", "Tauri", "Framer Motion", "Shadcn UI"],
         github: "https://github.com/joaopedro08-dev/Atelie-Frontend",
     },
     {
@@ -89,7 +89,7 @@ export const projects: Project[] = [
         title: "Nexus-Frontend",
         description: "Plataforma com interface inspirada em ferramentas de IA com frontend em Next.js.",
         type: ["Web", "Front-end"],
-        techs: ["TypeScript", "Next.js"],
+        techs: ["TypeScript", "Next.js", "Tailwind", "Framer Motion", "Shadcn UI"],
         github: "https://github.com/joaopedro08-dev/Nexus-Frontend",
     },
     {
@@ -138,14 +138,14 @@ export const projects: Project[] = [
         title: "Authentication-Java",
         description: "API de autenticação simples com Spring Boot, GraphQL, JWT e PostgreSQL.",
         type: ["Back-end"],
-        techs: ["Java", "Spring Boot", "GraphQL", "PostgreSQL"],
+        techs: ["Java", "Spring Boot", "GraphQL", "PostgreSQL", "JWT", "Spring Security", "Spring JPA"],
         github: "https://github.com/joaopedro08-dev/Authentication-Java",
     },
     {
         title: "Grade",
         description: "Jogo de palavras moderno inspirado no Wordle, com modos Single, Duo e Quartet.",
         type: ["Web", "Mobile"],
-        techs: ["TypeScript", "React"],
+        techs: ["TypeScript", "React", "Tailwind", "Next.js", "Framer Motion", "Shadcn UI"],
         github: "https://github.com/joaopedro08-dev/Grade",
     },
     {
