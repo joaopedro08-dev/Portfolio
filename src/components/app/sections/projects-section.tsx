@@ -22,17 +22,6 @@ const allTechs = [
 export default function ProjectsSection() {
     const [activeType, setActiveType] = useState("Todos");
     const [activeTech, setActiveTech] = useState("Todas");
-    const [expandedProjects, setExpandedProjects] = useState<Set<string>>(new Set());
-
-    const toggleExpanded = (projectTitle: string) => {
-        const newExpanded = new Set(expandedProjects);
-        if (newExpanded.has(projectTitle)) {
-            newExpanded.delete(projectTitle);
-        } else {
-            newExpanded.add(projectTitle);
-        }
-        setExpandedProjects(newExpanded);
-    };
 
     const filtered = projects.filter((p) => {
         const matchType = activeType === "Todos" || p.type.includes(activeType);
@@ -137,21 +126,9 @@ export default function ProjectsSection() {
 
                                             <div className="flex flex-col gap-2">
                                                 <h3 className="text-sm font-semibold leading-snug">{project.title}</h3>
-                                                <div className="flex flex-col gap-1.5">
-                                                    <p className={`text-xs text-muted-foreground leading-relaxed ${expandedProjects.has(project.title) ? "" : "line-clamp-3"}`}>
-                                                        {project.description}
-                                                    </p>
-                                                    {project.description.length > 100 && (
-                                                        <Button
-                                                            variant="ghost"
-                                                            size="sm"
-                                                            className="h-6 px-2 text-xs text-primary hover:text-primary/80 p-0 justify-start"
-                                                            onClick={() => toggleExpanded(project.title)}
-                                                        >
-                                                            {expandedProjects.has(project.title) ? "Ver menos" : "Ver mais"}
-                                                        </Button>
-                                                    )}
-                                                </div>
+                                                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3">
+                                                    {project.description}
+                                                </p>
                                             </div>
 
                                             <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
