@@ -82,7 +82,7 @@ export const projects: Project[] = [
         title: "ExploraBrasil",
         description: "Aplicativo de geografia desenvolvido para o projeto integrador SESI/SENAI em Ourinhos/SP. Disponível para Android.",
         type: ["Mobile"],
-        techs: ["Android"],
+        techs: ["Android", "Ionic", "Angular", "TypeScript"],
         github: "https://github.com/joaopedro08-dev/ExploraBrasil",
     },
     {
