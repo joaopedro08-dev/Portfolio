@@ -169,4 +169,11 @@ export const projects: Project[] = [
         techs: ["HTML", "CSS"],
         github: "https://github.com/joaopedro08-dev/Anabolizantes",
     },
+    {
+        title: "Taskly",
+        description: "Lista de tarefas colaborativa integrada para web e mobile.",
+        type: ["Web", "Mobile", "Front-end"],
+        techs: ["Vue", "Ionic", "Firebase", "Bootstrap", "Android", "iOS"],
+        github: "https://github.com/joaopedro08-dev/Taskly",
+    },
 ];
