@@ -19,7 +19,7 @@ export const projects: Project[] = [
         title: "Backend-SigaAluno",
         description: "Serviço back-end do sistema de gestão escolar SigaAluno para o TCC.",
         type: ["Back-end"],
-        techs: ["Java", "JWT", "Spring Boot", "Maven", "Spring Security", "Spring JPA", "Mercado Pago SDK"],
+        techs: ["Java", "JWT", "Spring Boot", "Maven", "Spring Security", "Spring JPA", "Mercado Pago SDK", "PostgreSQL", "MongoDB", "REST API"],
         github: "https://github.com/joaopedro08-dev/Backend-SigaAluno",
     },
     {
@@ -194,7 +194,7 @@ export const projects: Project[] = [
         title: "StackForge",
         description: "Gerador de backend inspirado no Spring Boot para Node.js e TypeScript. Crie APIs prontas para produção com arquitetura, banco de dados, recursos e ferramentas personalizáveis.",
         type: ["Back-end"],
-        techs: ["GraphQL", "Boilerplate", "JWT", "REST API", "Scaffold", "Express.js"],
+        techs: ["GraphQL", "Boilerplate", "JWT", "REST API", "Scaffold", "Express", "Prisma"],
         github: "https://github.com/joaopedro08-dev/StackForge",
     },
 ];
