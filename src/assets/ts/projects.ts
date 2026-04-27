@@ -33,7 +33,7 @@ export const projects: Project[] = [
         title: "Atelie-Backend",
         description: "API do Atelie baseada em GraphQL com integração ao banco de dados e autenticação.",
         type: ["Back-end"],
-        techs: ["Java", "GraphQL", "JWT", "Spring Boot", "PostgreSQL", "Spring Security", "Spring JPA"],
+        techs: ["Java", "GraphQL", "JWT", "Spring Boot", "PostgreSQL", "Spring Security", "Spring JPA", "Maven"],
         github: "https://github.com/joaopedro08-dev/Atelie-Backend",
     },
     {
@@ -138,7 +138,7 @@ export const projects: Project[] = [
         title: "Authentication-Java",
         description: "API de autenticação simples com Spring Boot, GraphQL, JWT e PostgreSQL.",
         type: ["Back-end"],
-        techs: ["Java", "Spring Boot", "GraphQL", "PostgreSQL", "JWT", "Spring Security", "Spring JPA"],
+        techs: ["Java", "Spring Boot", "GraphQL", "PostgreSQL", "JWT", "Spring Security", "Spring JPA", "Maven"],
         github: "https://github.com/joaopedro08-dev/Authentication-Java",
     },
     {
