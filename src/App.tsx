@@ -4,7 +4,7 @@ import Main from "./components/app/main"
 
 export function App() {
   return (
-    <div className="w-full min-h-dvh overflow-x-hidden flex flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+    <div className="w-full min-h-dvh overflow-hidden flex flex-col pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
       <Header />
       <Main className="pt-16" />
       <Footer />

@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "@/components/language-provider";
 
 export default function Footer() {
+    const { content } = useLanguage();
     const currentYear = new Date().getFullYear();
 
     return (
@@ -18,8 +20,8 @@ export default function Footer() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
                 >
-                    <p className="text-sm tracking-normal text-balance">© {currentYear} João Pedro. Todos os direitos reservados.</p>
-                    <p className="text-sm tracking-normal text-balance">Desenvolvido por <span className="text-primary font-medium">João Pedro Dala Dea Mello</span></p>
+                    <p className="text-sm tracking-normal text-balance">© {currentYear} João Pedro. {content.footer.reserved}</p>
+                    <p className="text-sm tracking-normal text-balance">{content.footer.developedBy} <span className="text-primary font-medium">João Pedro Dala Dea Mello</span></p>
                 </motion.div>
             </div>
         </motion.footer>

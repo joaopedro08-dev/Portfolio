@@ -5,8 +5,11 @@ import Me from "@/assets/images/profile.jpeg";
 import Resume from "@/assets/pdf/currículo-joao.p.mello-dev.pdf";
 import { motion } from "framer-motion";
 import { fadeInUp, slideInLeft, slideInRight, staggerContainer } from "@/lib/animations";
+import { useLanguage } from "@/components/language-provider";
 
 export default function AboutSection() {
+    const { content } = useLanguage();
+
     return (
         <motion.section
             id="about"
@@ -43,31 +46,27 @@ export default function AboutSection() {
                 <motion.div className="flex flex-col gap-5" variants={slideInRight} custom={0}>
                     <motion.div variants={fadeInUp} custom={0}>
                         <Badge variant="outline" className="w-fit rounded-full px-4 py-1 text-xs">
-                            Sobre mim
+                            {content.about.badge}
                         </Badge>
                     </motion.div>
 
                     <motion.h2 className="text-3xl md:text-4xl font-bold tracking-tight" variants={fadeInUp} custom={1}>
-                        João Pedro Dala Dea Mello
+                        {content.about.title}
                     </motion.h2>
 
                     <motion.div className="flex flex-col gap-3 text-muted-foreground text-sm leading-relaxed" variants={staggerContainer} initial="hidden" animate="visible">
-                        <motion.p variants={fadeInUp} custom={2}>
-                            Tenho 18 anos e iniciei minha jornada como desenvolvedor em 2024, impulsionado pela paixão pela programação durante o curso de Análise e Desenvolvimento de Sistemas no Senai de Ourinhos/SP.
-                        </motion.p>
-                        <motion.p variants={fadeInUp} custom={3}>
-                            Desde então, venho me dedicando ao desenvolvimento de soluções web e mobile, sempre buscando aprender novas tecnologias e criar interfaces que proporcionem uma experiência intuitiva e agradável ao usuário.
-                        </motion.p>
-                        <motion.p variants={fadeInUp} custom={4}>
-                            Acredito que bom código vai além da funcionalidade — ele precisa ser limpo, escalável e pensado para as pessoas.
-                        </motion.p>
+                        {content.about.paragraphs.map((paragraph, index) => (
+                            <motion.p key={paragraph} variants={fadeInUp} custom={index + 2}>
+                                {paragraph}
+                            </motion.p>
+                        ))}
                     </motion.div>
 
                     <motion.div variants={fadeInUp} custom={5} whileHover={{ scale: 1.05 }}>
                         <Button variant="outline" className="w-fit mt-2" asChild>
                             <a href={Resume} target="_blank" rel="noopener noreferrer">
                                 <FileText className="mr-2 h-4 w-4" />
-                                Ver currículo
+                                {content.about.action}
                             </a>
                         </Button>
                     </motion.div>

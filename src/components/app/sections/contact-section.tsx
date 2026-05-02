@@ -4,6 +4,7 @@ import { Mail, MapPin, ExternalLink } from "lucide-react";
 import { BsGithub, BsLinkedin, BsWhatsapp } from "react-icons/bs";
 import { motion } from "framer-motion";
 import { fadeInUp, scaleIn, staggerContainer } from "@/lib/animations";
+import { useLanguage } from "@/components/language-provider";
 
 type Contact = {
     label: string;
@@ -15,46 +16,48 @@ type Contact = {
     bgColor: string;
 };
 
-const contacts: Contact[] = [
-    {
-        label: "GitHub",
-        value: "joaopedro08-dev",
-        href: "https://github.com/joaopedro08-dev",
-        icon: <BsGithub size={20} />,
-        external: true,
-        color: "#FFFFFF",
-        bgColor: "bg-gray-800 dark:bg-gray-700",
-    },
-    {
-        label: "LinkedIn",
-        value: "João Pedro Dala Dea Mello",
-        href: "https://www.linkedin.com/in/jo%C3%A3o-pedro-dala-dea-mello-3266003a3/",
-        icon: <BsLinkedin size={20} />,
-        external: true,
-        color: "#0A66C2",
-        bgColor: "bg-blue-50 dark:bg-blue-950",
-    },
-    {
-        label: "WhatsApp",
-        value: "+55 (14) 99681-5396",
-        href: "https://wa.me/5514996815396",
-        icon: <BsWhatsapp size={20} />,
-        external: true,
-        color: "#25D366",
-        bgColor: "bg-green-50 dark:bg-green-950",
-    },
-    {
-        label: "Email",
-        value: "joao.p.mello.dev@gmail.com",
-        href: "mailto:joao.p.mello.dev@gmail.com",
-        icon: <Mail size={20} />,
-        external: false,
-        color: "#EA4335",
-        bgColor: "bg-red-50 dark:bg-red-950",
-    },
-];
-
 export default function ContactSection() {
+    const { content } = useLanguage();
+
+    const contacts: Contact[] = [
+        {
+            label: "GitHub",
+            value: "joaopedro08-dev",
+            href: "https://github.com/joaopedro08-dev",
+            icon: <BsGithub size={20} />,
+            external: true,
+            color: "#FFFFFF",
+            bgColor: "bg-gray-800 dark:bg-gray-700",
+        },
+        {
+            label: "LinkedIn",
+            value: "João Pedro Dala Dea Mello",
+            href: "https://www.linkedin.com/in/jo%C3%A3o-pedro-dala-dea-mello-3266003a3/",
+            icon: <BsLinkedin size={20} />,
+            external: true,
+            color: "#0A66C2",
+            bgColor: "bg-blue-50 dark:bg-blue-950",
+        },
+        {
+            label: "WhatsApp",
+            value: "+55 (14) 99681-5396",
+            href: "https://wa.me/5514996815396",
+            icon: <BsWhatsapp size={20} />,
+            external: true,
+            color: "#25D366",
+            bgColor: "bg-green-50 dark:bg-green-950",
+        },
+        {
+            label: "Email",
+            value: "joao.p.mello.dev@gmail.com",
+            href: "mailto:joao.p.mello.dev@gmail.com",
+            icon: <Mail size={20} />,
+            external: false,
+            color: "#EA4335",
+            bgColor: "bg-red-50 dark:bg-red-950",
+        },
+    ];
+
     return (
         <motion.section
             id="contact"
@@ -67,19 +70,19 @@ export default function ContactSection() {
             <div className="mx-auto flex flex-col gap-10">
                 <motion.div className="flex flex-col gap-2" variants={staggerContainer} initial="hidden" animate="visible">
                     <motion.span className="text-xs font-medium uppercase tracking-widest text-primary" variants={fadeInUp} custom={0}>
-                        Contato
+                        {content.contact.label}
                     </motion.span>
                     <motion.h2 className="text-3xl md:text-4xl font-bold tracking-tight" variants={fadeInUp} custom={1}>
-                        Vamos <span className="text-primary">conversar</span>
+                        {content.contact.titlePrefix} <span className="text-primary">{content.contact.titleHighlight}</span>
                     </motion.h2>
                     <motion.p className="text-sm text-muted-foreground max-w-lg" variants={fadeInUp} custom={2}>
-                        Estou disponível para freelas, projetos colaborativos ou apenas uma boa conversa sobre tecnologia.
+                        {content.contact.description}
                     </motion.p>
                 </motion.div>
 
                 <motion.div className="flex items-center gap-2 text-sm text-muted-foreground -mt-4" variants={fadeInUp} custom={3}>
                     <MapPin size={14} className="text-primary shrink-0" />
-                    <span>Ibirarema, SP — Brasil</span>
+                    <span>{content.contact.location}</span>
                 </motion.div>
 
                 <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" variants={staggerContainer} initial="hidden" animate="visible">
@@ -109,7 +112,7 @@ export default function ContactSection() {
                                                 target={contact.external ? "_blank" : undefined}
                                                 rel={contact.external ? "noopener noreferrer" : undefined}
                                             >
-                                                Acessar
+                                                {content.contact.access}
                                                 <ExternalLink className="ml-1.5 h-3 w-3" />
                                             </a>
                                         </Button>

@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { CodeIcon } from "lucide-react";
 import { ModeToggle } from "../mode-toggle";
+import { LanguageToggle } from "@/components/language-toggle";
 import { motion } from "framer-motion";
 import { fadeInDown, fadeInUp } from "@/lib/animations";
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/components/language-provider";
 
 export default function Header() {
+    const { content } = useLanguage();
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
 
@@ -44,11 +47,11 @@ export default function Header() {
     }, []);
 
     const navLinks = [
-        { label: "Home", href: "#home" },
-        { label: "Sobre", href: "#about" },
-        { label: "Projetos", href: "#projects" },
-        { label: "Habilidades", href: "#skills" },
-        { label: "Contato", href: "#contact" },
+        { label: content.nav.home, href: "#home" },
+        { label: content.nav.about, href: "#about" },
+        { label: content.nav.projects, href: "#projects" },
+        { label: content.nav.skills, href: "#skills" },
+        { label: content.nav.contact, href: "#contact" },
     ];
 
     return (
@@ -78,7 +81,8 @@ export default function Header() {
                         <Button size="icon" variant="outline"><CodeIcon /></Button>
                         <h2 className="font-bold text-lg">João Pedro</h2>
                     </motion.a>
-                    <div className="md:hidden">
+                    <div className="md:hidden flex items-center gap-2">
+                        <LanguageToggle />
                         <ModeToggle />
                     </div>
                 </motion.div>
@@ -124,7 +128,10 @@ export default function Header() {
                     animate="visible"
                     custom={2}
                 >
-                    <ModeToggle />
+                    <div className="flex items-center gap-2">
+                        <LanguageToggle />
+                        <ModeToggle />
+                    </div>
                 </motion.div>
             </div>
         </motion.header>

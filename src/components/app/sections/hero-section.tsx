@@ -4,14 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeInUp, scaleIn, staggerContainer } from "@/lib/animations";
-
-const words = ["Web", "Mobile", "Full-Stack", "Back-end", "Front-end", "DevOps", "UI/UX"];
+import { useLanguage } from "@/components/language-provider";
 
 export default function HeroSection() {
+    const { content } = useLanguage();
     const [text, setText] = useState("");
     const [wordIndex, setWordIndex] = useState(0);
     const [deleting, setDeleting] = useState(false);
     const [paused, setPaused] = useState(false);
+    const words = content.hero.words;
 
     useEffect(() => {
         const word = words[wordIndex];
@@ -53,17 +54,17 @@ export default function HeroSection() {
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                     </span>
-                    Disponível para projetos
+                    {content.hero.badge}
                 </Badge>
             </motion.div>
 
             <motion.div className="flex flex-col items-center gap-2 w-full" variants={fadeInUp} custom={1}>
                 <motion.h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight" variants={fadeInUp} custom={2}>
-                    Olá, eu sou o João Pedro
+                    {content.hero.title}
                 </motion.h1>
 
                 <motion.div className="flex items-center justify-center gap-2 md:gap-3 text-xl sm:text-2xl md:text-5xl lg:text-6xl font-bold tracking-tight w-full min-h-[1.2em]" variants={fadeInUp} custom={3}>
-                    <span className="shrink-0">Desenvolvedor</span>
+                    <span className="shrink-0">{content.hero.rolePrefix}</span>
                     <span className="text-muted-foreground inline-block min-w-0 overflow-hidden text-ellipsis">
                         {text}
                         <span className="inline-block w-0.5 h-[1em] bg-foreground ml-1 align-middle animate-pulse" />
@@ -72,14 +73,14 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.p className="text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed" variants={fadeInUp} custom={4}>
-                Apaixonado por criar soluções inovadoras e interfaces intuitivas que geram impacto real.
+                {content.hero.description}
             </motion.p>
 
             <motion.div className="flex flex-wrap items-center justify-center gap-3 mt-2" variants={staggerContainer} initial="hidden" animate="visible">
                 <motion.div variants={fadeInUp} custom={5} whileHover={{ scale: 1.05 }}>
                     <Button size="lg" asChild>
                         <a href="#projects">
-                            Ver projetos
+                            {content.hero.primaryAction}
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </a>
                     </Button>
@@ -89,7 +90,7 @@ export default function HeroSection() {
                     <Button size="lg" variant="outline" asChild>
                         <a href="#contact">
                             <Mail className="mr-2 h-4 w-4" />
-                            Entre em contato
+                            {content.hero.secondaryAction}
                         </a>
                     </Button>
                 </motion.div>

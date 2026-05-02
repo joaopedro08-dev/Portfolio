@@ -4,6 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 import { fadeInUp, scaleIn, staggerContainer, staggerItem } from "@/lib/animations";
+import { useLanguage } from "@/components/language-provider";
 
 type Skill = {
     name: string;
@@ -14,101 +15,6 @@ type Category = {
     title: string;
     skills: Skill[];
 };
-
-const mastered: Category[] = [
-    {
-        title: "Front-end",
-        skills: [
-            { name: "React", level: 85 },
-            { name: "TypeScript", level: 70 },
-            { name: "JavaScript", level: 80 },
-            { name: "Tailwind CSS", level: 80 },
-            { name: "HTML & CSS", level: 90 },
-            { name: "Next.js", level: 65 },
-        ],
-    },
-    {
-        title: "Back-end",
-        skills: [
-            { name: "Node.js / Express", level: 60 },
-            { name: "Java / Spring Boot", level: 75 },
-            { name: "Python / FastAPI", level: 60 },
-            { name: "GraphQL", level: 65 },
-            { name: "PHP", level: 60 },
-        ],
-    },
-    {
-        title: "Mobile",
-        skills: [
-            { name: "Ionic + React", level: 75 },
-            { name: "Capacitor", level: 70 },
-            { name: "Ionic + Angular", level: 60 },
-            { name: "Flutter", level: 50 },
-        ],
-    },
-    {
-        title: "Banco de Dados",
-        skills: [
-            { name: "PostgreSQL", level: 75 },
-            { name: "MySql", level: 70 },
-            { name: "Firebase", level: 70 },
-            { name: "SQLite", level: 65 },
-            { name: "MongoDB", level: 65 },
-            { name: "phpMyAdmin", level: 60 },
-        ],
-    },
-    {
-        title: "Ferramentas",
-        skills: [
-            { name: "Git & GitHub", level: 80 },
-            { name: "Vite", level: 75 },
-            { name: "Figma", level: 65 },
-            { name: "Docker", level: 55 },
-            { name: "IDEs da JetBrains", level: 70 },
-            { name: "VS Code", level: 80 },
-        ],
-    },
-];
-
-const learning: Category[] = [
-    {
-        title: "Linguagens",
-        skills: [
-            { name: "Rust", level: 20 },            
-        ],
-    },
-    {
-        title: "Front-end",
-        skills: [
-            { name: "Vue.js", level: 20 },
-        ],
-    },
-    {
-        title: "Desktop",
-        skills: [
-            { name: "Tauri", level: 25 },
-        ],
-    },
-    {
-        title: "NoSql",
-        skills: [
-            { name: "Redis", level: 20 },
-        ],
-    },
-    {
-        title: "Cloud",
-        skills: [
-            { name: "AWS", level: 15 },
-            { name: "Azure", level: 25 },
-        ],
-    },
-    {
-        title: "Outros",
-        skills: [
-            { name: "IA / LLMs", level: 35 },
-        ],
-    },
-];
 
 function SkillCard({ category }: { category: Category }) {
     return (
@@ -157,6 +63,103 @@ function SkillCard({ category }: { category: Category }) {
 }
 
 export default function SkillsSection() {
+    const { content } = useLanguage();
+
+    const mastered: Category[] = [
+        {
+            title: content.skills.categories.frontEnd,
+            skills: [
+                { name: "React", level: 85 },
+                { name: "TypeScript", level: 70 },
+                { name: "JavaScript", level: 80 },
+                { name: "Tailwind CSS", level: 80 },
+                { name: "HTML & CSS", level: 90 },
+                { name: "Next.js", level: 65 },
+            ],
+        },
+        {
+            title: content.skills.categories.backEnd,
+            skills: [
+                { name: "Node.js / Express", level: 60 },
+                { name: "Java / Spring Boot", level: 75 },
+                { name: "Python / FastAPI", level: 60 },
+                { name: "GraphQL", level: 65 },
+                { name: "PHP", level: 60 },
+            ],
+        },
+        {
+            title: content.skills.categories.mobile,
+            skills: [
+                { name: "Ionic + React", level: 75 },
+                { name: "Capacitor", level: 70 },
+                { name: "Ionic + Angular", level: 60 },
+                { name: "Flutter", level: 50 },
+            ],
+        },
+        {
+            title: content.skills.categories.database,
+            skills: [
+                { name: "PostgreSQL", level: 75 },
+                { name: "MySql", level: 70 },
+                { name: "Firebase", level: 70 },
+                { name: "SQLite", level: 65 },
+                { name: "MongoDB", level: 65 },
+                { name: "phpMyAdmin", level: 60 },
+            ],
+        },
+        {
+            title: content.skills.categories.tools,
+            skills: [
+                { name: "Git & GitHub", level: 80 },
+                { name: "Vite", level: 75 },
+                { name: "Figma", level: 65 },
+                { name: "Docker", level: 55 },
+                { name: "IDEs da JetBrains", level: 70 },
+                { name: "VS Code", level: 80 },
+            ],
+        },
+    ];
+
+    const learning: Category[] = [
+        {
+            title: content.skills.categories.languages,
+            skills: [
+                { name: "Rust", level: 20 },
+            ],
+        },
+        {
+            title: content.skills.categories.frontEnd,
+            skills: [
+                { name: "Vue.js", level: 20 },
+            ],
+        },
+        {
+            title: content.skills.categories.desktop,
+            skills: [
+                { name: "Tauri", level: 25 },
+            ],
+        },
+        {
+            title: content.skills.categories.nosql,
+            skills: [
+                { name: "Redis", level: 20 },
+            ],
+        },
+        {
+            title: content.skills.categories.cloud,
+            skills: [
+                { name: "AWS", level: 15 },
+                { name: "Azure", level: 25 },
+            ],
+        },
+        {
+            title: content.skills.categories.others,
+            skills: [
+                { name: "IA / LLMs", level: 35 },
+            ],
+        },
+    ];
+
     return (
         <motion.section
             id="skills"
@@ -169,26 +172,26 @@ export default function SkillsSection() {
             <div className="mx-auto flex flex-col gap-10">
                 <motion.div className="flex flex-col gap-2" variants={staggerContainer} initial="hidden" animate="visible">
                     <motion.span className="text-xs font-medium uppercase tracking-widest text-primary" variants={fadeInUp} custom={0}>
-                        Habilidades
+                        {content.skills.label}
                     </motion.span>
                     <motion.h2 className="text-3xl md:text-4xl font-bold tracking-tight" variants={fadeInUp} custom={1}>
-                        Minhas <span className="text-primary">skills</span>
+                        {content.skills.titlePrefix} <span className="text-primary">{content.skills.titleHighlight}</span>
                     </motion.h2>
                     <motion.p className="text-sm text-muted-foreground max-w-lg" variants={fadeInUp} custom={2}>
-                        Tecnologias e ferramentas que utilizo no dia a dia e as que estou explorando.
+                        {content.skills.description}
                     </motion.p>
                 </motion.div>
 
                 <Tabs defaultValue="dominando">
                     <TabsList className="mb-6">
                         <TabsTrigger value="dominando">
-                            Dominando
+                            {content.skills.mastered}
                             <Badge variant="secondary" className="ml-2 text-xs px-1.5 py-0">
                                 {mastered.reduce((acc, c) => acc + c.skills.length, 0)}
                             </Badge>
                         </TabsTrigger>
                         <TabsTrigger value="aprendendo">
-                            Aprendendo
+                            {content.skills.learning}
                             <Badge variant="secondary" className="ml-2 text-xs px-1.5 py-0">
                                 {learning.reduce((acc, c) => acc + c.skills.length, 0)}
                             </Badge>
