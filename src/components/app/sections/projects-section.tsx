@@ -226,7 +226,7 @@ export default function ProjectsSection() {
                         </motion.div>
 
                         {hasMoreProjects && (
-                            <motion.div className="flex justify-center mt-2" variants={fadeInUp} custom={3}>
+                            <motion.div className="flex justify-center mt-2" variants={fadeInUp} custom={3} initial="hidden" animate="visible">
                                 <Button
                                     variant="outline"
                                     size="sm"
@@ -239,7 +239,7 @@ export default function ProjectsSection() {
                         )}
 
                         {visibleProjects.length > initialVisibleCount && (
-                            <motion.div className="flex justify-center mt-2" variants={fadeInUp} custom={4}>
+                            <motion.div className="flex justify-center mt-2" variants={fadeInUp} custom={4} initial="hidden" animate="visible">
                                 <Button
                                     variant="ghost"
                                     size="sm"
